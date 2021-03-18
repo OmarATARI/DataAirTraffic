@@ -83,28 +83,4 @@ class Airline(Base):
   """Airlines"""
 
   __tablename__= "Airlines"
-
-  carrier = Column(String, primary_key=True)
-  name = Column(String)
-
-class Weather(Base):
-  """Weather"""
-
-  __tablename__ = "Weather"
-
-  origin = Column(String, primary_key=True)
-  year =  Column(Integer, primary_key=True)
-  month =  Column(Integer, primary_key=True)
-  day =  Column(Integer, primary_key=True)
-  hour =  Column(Integer, primary_key=True)
-
-  temp =  Column(Float)
-  dewp =  Column(Float)
-  humid = Column(Float)
-  wind_dir = Column(Integer)
-  wind_speed = Column(Float)
-  wind_gust =  Column(Float)
-  precip =  Column(Float)
-  pressure = Column(Float)
-  visib = Column(Float)
-  time_hour = Column(String)
+jjcdkckjd kj dk kx kjdckjdckjdcndkcjdkjcndk
