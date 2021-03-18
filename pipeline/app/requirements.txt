@@ -1,0 +1,8 @@
+pandas
+sqlalchemy
+psycopg2
+matplotlib
+flask_sqlalchemy
+flask_script
+kafka-python
+Flask
