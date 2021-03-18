@@ -4,7 +4,6 @@ from sqlalchemy.types import Integer, Text, String
 
 Base = declarative_base()
 
-
 class Name(Base):
   """Name account."""
 
@@ -50,4 +49,62 @@ class Flight(Base):
   distance = Column(Integer)
   hour = Column(Integer)
   minute = Column(Integer)
+  time_hour = Column(String)
+
+class Airport(Base):
+  """Airports"""
+
+  __tablename__ = "Airports"
+
+  faa = Column(String, primary_key=True)
+  name = Column(String)
+  lat = Column(String)
+  lon = Column(String)
+  alt = Column(Integer)
+  tz = Column(Integer)
+  dst = Column(String)
+  tzone = Column(String)
+
+class Plane(Base):
+  """Planes"""
+
+  __tablename__ = "Planes"
+
+  tailnum = Column(String, primary_key=True)
+  name = Column(integer)
+  lat = Column(String)
+  lon = Column(String)
+  alt = Column(String)
+  tz = Column(Integer)
+  dst = Column(String)
+  tzone = Column(String)
+
+class Airline(Base):
+  """Airlines"""
+
+  __tablename__= "Airlines"
+
+  carrier = Column(String, primary_key=True)
+  name = Column(String)
+
+class Weather(Base):
+  """Weather"""
+
+  __tablename__ = "Weather"
+
+  origin = Column(String, primary_key=True)
+  year =  Column(Integer, primary_key=True)
+  month =  Column(Integer, primary_key=True)
+  day =  Column(Integer, primary_key=True)
+  hour =  Column(Integer, primary_key=True)
+
+  temp =  Column(Float)
+  dewp =  Column(Float)
+  humid = Column(Float)
+  wind_dir = Column(Integer)
+  wind_speed = Column(Float)
+  wind_gust =  Column(Float)
+  precip =  Column(Float)
+  pressure = Column(Float)
+  visib = Column(Float)
   time_hour = Column(String)

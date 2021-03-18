@@ -7,5 +7,6 @@ engine = create_engine(
     'postgresql://pxl:password@postgres/airtraffic',
     echo=True
 )
+
 Session = sessionmaker(bind=engine)
 session = Session()

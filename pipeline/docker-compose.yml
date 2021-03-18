@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: pxl 
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: names
+      POSTGRES_DB: airtraffic
 
   flask-visualization:
     build: app/.
