@@ -1,29 +1,9 @@
-from sqlalchemy import Column
+from sqlalchemy import Column, ForeignKey, Table
+from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.types import Integer, Text, String, Float
 
 Base = declarative_base()
-
-class Name(Base):
-  """Name account."""
-
-  __tablename__ = "NAMES"
-  
-  index = Column(Integer, primary_key=True, autoincrement="auto")
-  name = Column(String(255), unique=True, nullable=False)
-  occurences = Column(Integer)
-  gender = Column(String(1), nullable= False)
-
-  def __repr__(self):
-    return "<Name %r>" % self.name
-
-  def serialize(self):
-    return {
-        'index': self.index, 
-        'name': self.name,
-        'occurences': self.occurences,
-        'gender': self.gender
-    }
 
 class Flight(Base):
   """Flight"""
@@ -43,13 +23,21 @@ class Flight(Base):
   carrier = Column(String)
   flight = Column(Integer)
   tailnum = Column(String)
-  origin = Column(String)
-  dest = Column(String)
+  origin = Column(String, ForeignKey('Airports.faa'))
+  dest = Column(String, ForeignKey('Airports.faa'))
   air_time = Column(Integer)
   distance = Column(Integer)
   hour = Column(Integer)
   minute = Column(Integer)
   time_hour = Column(String)
+
+  parent_id = Column(String, ForeignKey('Planes.tailnum'))
+  parent = relationship("Plane", back_populates="children")
+
+  airline_id = Column(String, ForeignKey('Airlines.carrier'))
+  airline = relationship("Airline", back_populates="children")
+
+  airport = relationship("Airport", back_populates="children")
 
   def serialize(self):
     return {
@@ -60,6 +48,22 @@ class Flight(Base):
         'origin': self.origin,
         'dest': self.dest
     }
+
+class Plane(Base):
+  """Planes"""
+
+  __tablename__ = "Planes"
+
+  tailnum = Column(String, primary_key=True)
+  year = Column(Integer)
+  type_ = Column(String)
+  manufacturer = Column(String)
+  model = Column(String)
+  engines = Column(Integer)
+  seats = Column(Integer)
+  speed = Column(Integer)
+  engine = Column(String)
+  children = relationship("Flight", back_populates="parent")
 
 class Airport(Base):
   """Airports"""
@@ -75,19 +79,7 @@ class Airport(Base):
   dst = Column(String)
   tzone = Column(String)
 
-class Plane(Base):
-  """Planes"""
-
-  __tablename__ = "Planes"
-
-  tailnum = Column(String, primary_key=True)
-  name = Column(Integer)
-  lat = Column(String)
-  lon = Column(String)
-  alt = Column(String)
-  tz = Column(Integer)
-  dst = Column(String)
-  tzone = Column(String)
+  children = relationship("Flight", back_populates="airport")
 
 class Airline(Base):
   """Airlines"""
@@ -96,6 +88,9 @@ class Airline(Base):
 
   carrier = Column(String, primary_key=True)
   name = Column(String)
+
+  children = relationship("Flight", back_populates="airline")
+
 
 class Weather(Base):
   """Weather"""
