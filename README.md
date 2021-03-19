@@ -2,15 +2,11 @@
 
 Launch docker containers:
 ```
+docker-compose build
 docker-compose up -d
 ```
 
 Populate database:
 ```
-python3 generate_data.py
+docker-compose run --rm flask-visualization python3 generate_data.py 
 ```
-
-Get visuals at:
-- localhost:5000/diag
-or
-- localhost:5000/nuage
