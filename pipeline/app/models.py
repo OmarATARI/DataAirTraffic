@@ -1,6 +1,6 @@
 from sqlalchemy import Column
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.types import Integer, Text, String
+from sqlalchemy.types import Integer, Text, String, Float
 
 Base = declarative_base()
 
@@ -51,6 +51,16 @@ class Flight(Base):
   minute = Column(Integer)
   time_hour = Column(String)
 
+  def serialize(self):
+    return {
+        'index': self.index, 
+        'carrier': self.carrier,
+        'flight': self.flight,
+        'tailnum': self.tailnum,
+        'origin': self.origin,
+        'dest': self.dest
+    }
+
 class Airport(Base):
   """Airports"""
 
@@ -71,7 +81,7 @@ class Plane(Base):
   __tablename__ = "Planes"
 
   tailnum = Column(String, primary_key=True)
-  name = Column(integer)
+  name = Column(Integer)
   lat = Column(String)
   lon = Column(String)
   alt = Column(String)
@@ -98,13 +108,13 @@ class Weather(Base):
   day =  Column(Integer, primary_key=True)
   hour =  Column(Integer, primary_key=True)
 
-  temp =  Column(Float)
-  dewp =  Column(Float)
+  temp = Column(Float)
+  dewp = Column(Float)
   humid = Column(Float)
   wind_dir = Column(Integer)
   wind_speed = Column(Float)
-  wind_gust =  Column(Float)
-  precip =  Column(Float)
+  wind_gust = Column(Float)
+  precip = Column(Float)
   pressure = Column(Float)
   visib = Column(Float)
   time_hour = Column(String)

@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import load_only
 #from flask_script import Manager
 from database import session
-from models import Name
+from models import Flight
 import matplotlib.pyplot as plt
 import io
 import base64
@@ -22,8 +22,8 @@ def hello():
 @app.route('/getdata')
 def get():
     try:
-      names = session.query(Name).all()
-      return jsonify([e.serialize() for e in names])
+      flights = session.query(Flight).all()
+      return jsonify([e.serialize() for e in flights])
     except Exception as e:
 	    return(str(e))
 
